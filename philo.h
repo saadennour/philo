@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:44:23 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/05/22 22:46:13 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/05/30 17:11:19 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
+long long	ft_atoi(const char *str);
 
 # endif

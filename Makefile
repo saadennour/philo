@@ -2,11 +2,11 @@ NAME = philo
 
 CC = gcc
 
-SRCS = philo.c
+SRCS = philo.c tools.c
 
 OBJS = $(SRCS:.c=.o)
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -pthread
 
 all: $(NAME)
 

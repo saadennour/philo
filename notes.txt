@@ -1,0 +1,15 @@
+when creating a thread u apply a function
+pthread_create : to create a thread
+pthread_join : makes the application waits fro a thread to end
+a process can handle multiple threads
+threads shares memory the opposite of processes who duplicate the variables and each process work on his own space of memory
+
+RACE CONDITIONS !! (occure only on multi core processor)
+Race conditions in software or any system occur when the desired output requires that certain events occur in a specific order,
+but that the events don’t always happen in that order.
+There is a ‘race’ between the events and if the wrong events win, the program fails.
+
+
+MUTEX !!
+Mutex is a lock thats set to protect shared resources, its kind of a lock who block the thread to execute a part of code
+until the thread who owns the locks is finished executing.
