@@ -1,6 +1,6 @@
 when creating a thread u apply a function
 pthread_create : to create a thread
-pthread_join : makes the application waits fro a thread to end
+pthread_join : makes the application waits for a thread to end
 a process can handle multiple threads
 threads shares memory the opposite of processes who duplicate the variables and each process work on his own space of memory
 
@@ -11,5 +11,8 @@ There is a ‘race’ between the events and if the wrong events win, the progra
 
 
 MUTEX !!
+synchronization is a mecanism which ensures that 2 or more processes or threads do not execute simultaneaosly some particular program segment.
+in case of not applying a synch technique as mutex a race conditions may occure.
+
 Mutex is a lock thats set to protect shared resources, its kind of a lock who block the thread to execute a part of code
 until the thread who owns the locks is finished executing.
