@@ -63,6 +63,7 @@ int main(int ac, char **av)
 		printf ("Error\n");
 	else
 	{
+		//comment
 		num_philo = ft_atoi(av[1]);
 		philo = malloc(sizeof(t_philo) * num_philo);
 		rules = malloc(sizeof(t_global));
