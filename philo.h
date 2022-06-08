@@ -30,7 +30,7 @@ typedef struct s_philo
 	int 		id;
 	int 		last_meal;
 	pthread_t 	philo;
-	t_global	rules;
+	t_global	*rules;
 } t_philo ;
 
 
