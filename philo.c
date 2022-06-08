@@ -12,61 +12,84 @@
 
 #include "philo.h"
 
-pthread_mutex_t mutex;
 
 void	*philo_born(void *guests)
 {
 	static int i = 1;
-	
-	pthread_mutex_lock(&mutex);
+	//t_philo	*philo;
+	(void)guests;
+	//philo = (t_philo*)guests;
+	//pthread_mutex_lock(&philo->rules->mutex);
 	printf ("philo %d is born\n", i);
 	i++;
-	pthread_mutex_unlock(&mutex);
+	//pthread_mutex_unlock(&philo->rules->mutex);
 	return (0);
 }
 
 t_philo doc_strange(int ac, char **av)
 {
-	t_philo rules;
+	t_philo philo;
 	
-	rules.die = ft_atoi(av[2]);
-	rules.eat = ft_atoi(av[3]);
-	rules.sleep = ft_atoi(av[4]);
+	philo.rules.die = ft_atoi(av[2]);
+	philo.rules.eat = ft_atoi(av[3]);
+	philo.rules.sleep = ft_atoi(av[4]);
 	if (ac == 6)
-		rules.meals = ft_atoi(av[5]);
-	return (rules);
+		philo.rules.meals = ft_atoi(av[5]);
+	return (philo);
+}
+
+pthread_mutex_t *init_mutex(int num_philo)
+{
+	pthread_mutex_t *mutex;
+	int				i;
+
+	i = 0;
+	mutex = malloc(sizeof(pthread_mutex_t) * num_philo);
+	while (i < num_philo)
+	{
+		pthread_mutex_init(&mutex[i], NULL);
+		i++;
+	}
+	return (mutex);
 }
 
 int main(int ac, char **av)
 {
-	pthread_t	*thread_id;
-	t_philo		*rules = NULL;
+	t_philo		*philo;
+	t_global	*rules;
+	pthread_mutex_t	*mutex;
 	int 		num_philo;
 	int			i;
 
 	i = 0;
-	thread_id = NULL;
 	if (ac < 5)
 		printf ("Error\n");
 	else
 	{
 		num_philo = ft_atoi(av[1]);
-		rules = malloc(sizeof(t_philo) * num_philo);
-		while (i++ < num_philo - 1)
-			rules[i] = doc_strange(ac, av);
-		thread_id = malloc(sizeof(pthread_t) * num_philo);
-		pthread_mutex_init(&mutex, NULL);
-		i = 0;
-		while (i++ < num_philo)
+		philo = malloc(sizeof(t_philo) * num_philo);
+		rules = malloc(sizeof(t_global));
+		rules.mutex = init_mutex(num_philo);
+		while (i < num_philo)
 		{
-			printf ("%d\n", i);
-			pthread_create(&thread_id[i], NULL, &philo_born, &rules);
+			philo[i] = doc_strange(ac, av);
+			i++;
 		}
 		i = 0;
-		while (i++ < num_philo)
-			pthread_join(thread_id[i], NULL);
+		while (i < num_philo)
+		{
+			printf ("%d\n", philo[i].rules.eat);
+			pthread_create(&philo[i].philo, NULL, &philo_born, &philo);
+			i++;
+		}
+		i = 0;
+		while (i < num_philo)
+		{
+			pthread_join(philo[i].philo, NULL);
+			i++;
+		}
 	}
-	pthread_mutex_destroy(&mutex);
-	free(thread_id);
+	//pthread_mutex_destroy(&philo->rules.mutex);
+	//free(philo);
 	return (0);
 }

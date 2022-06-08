@@ -16,13 +16,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct s_global
+{
+	pthread_mutex_t *mutex;
+	int				die;
+	int 			eat;
+	int				sleep;
+	int				meals;
+} t_global ;
+
 typedef struct s_philo
 {
-	int	die;
-	int eat;
-	int	sleep;
-	int	meals;
-} t_philo ; 
+	int 		id;
+	int 		last_meal;
+	pthread_t 	philo;
+	t_global	rules;
+} t_philo ;
 
 
 
