@@ -23,6 +23,7 @@ typedef struct s_global
 	int 			eat;
 	int				sleep;
 	int				meals;
+	int				num_philo;
 } t_global ;
 
 typedef struct s_philo

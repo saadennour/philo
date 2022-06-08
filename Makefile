@@ -6,7 +6,7 @@ SRCS = philo.c tools.c
 
 OBJS = $(SRCS:.c=.o)
 
-FLAGS = -Wall -Werror -Wextra -pthread -fsanitize=address
+FLAGS = -Wall -Werror -Wextra -pthread 
 
 all: $(NAME)
 

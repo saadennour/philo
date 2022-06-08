@@ -15,27 +15,17 @@
 
 void	*philo_born(void *guests)
 {
-	static int i = 1;
+	//static int i = 1;
 	t_philo	*philo;
 	//(void)guests;
 	philo = (t_philo*)guests;
 	pthread_mutex_lock(&philo->rules->mutex[philo->id - 1]);
-	printf ("philo %d is born\n", i++);
+	pthread_mutex_lock(&philo->rules->mutex[philo->id % philo->rules->num_philo]);
+	printf ("philo %d is born\n", philo->id);
 	pthread_mutex_unlock(&philo->rules->mutex[philo->id - 1]);
+	pthread_mutex_unlock(&philo->rules->mutex[philo->id % philo->rules->num_philo]);
 	//pthread_mutex_destroy(&philo->rules->mutex);
 	return (0);
-}
-
-t_philo doc_strange(int ac, char **av)
-{
-	t_philo philo;
-	
-	philo.rules->die = ft_atoi(av[2]);
-	philo.rules->eat = ft_atoi(av[3]);
-	philo.rules->sleep = ft_atoi(av[4]);
-	if (ac == 6)
-		philo.rules->meals = ft_atoi(av[5]);
-	return (philo);
 }
 
 void init_mutex(int num_philo, t_global *rules)
@@ -51,10 +41,24 @@ void init_mutex(int num_philo, t_global *rules)
 	}
 }
 
+t_global *doc_strange(int ac, char **av, int num_philo)
+{
+	t_global *rules = NULL;
+
+	rules = malloc(sizeof(t_global));
+	rules->num_philo = ft_atoi(av[1]);	
+	rules->die = ft_atoi(av[2]);
+	rules->eat = ft_atoi(av[3]);
+	rules->sleep = ft_atoi(av[4]);
+	if (ac == 6)
+		rules->meals = ft_atoi(av[5]);
+	init_mutex(num_philo, rules);
+	return (rules);
+}
+
 int main(int ac, char **av)
 {
 	t_philo		*philo;
-	t_global	*rules;
 	int 		num_philo;
 	int			i;
 
@@ -63,21 +67,27 @@ int main(int ac, char **av)
 		printf ("Error\n");
 	else
 	{
-		//comment
 		num_philo = ft_atoi(av[1]);
-		philo = malloc(sizeof(t_philo) * num_philo);
-		rules = malloc(sizeof(t_global));
-		init_mutex(num_philo, rules);
 		while (i < num_philo)
 		{
-			philo[i] = doc_strange(ac, av);
+			printf ("%s\n", av[i + 1]);
+			i++;
+		}
+		philo = malloc(sizeof(t_philo) * num_philo);
+		//rules = malloc(sizeof(t_global));
+		i = 0;
+		while (i < num_philo)
+		{
 			philo[i].id = i + 1;
+			//philo[i].rules = rules;
+			// printf ("philo %d is born\n", philo[i].id);
+			philo[i].rules = doc_strange(ac, av, num_philo);
 			i++;
 		}
 		i = 0;
 		while (i < num_philo)
 		{
-			pthread_create(&philo[i].philo, NULL, &philo_born, &philo);
+			pthread_create(&philo[i].philo, NULL, &philo_born, &philo[i]);
 			i++;
 		}
 		i = 0;
