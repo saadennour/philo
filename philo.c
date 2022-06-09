@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:44:58 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/06 23:33:25 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/09 01:20:42 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,22 @@
 
 void	*philo_born(void *guests)
 {
-	//static int i = 1;
 	t_philo	*philo;
-	//(void)guests;
+
 	philo = (t_philo*)guests;
-	pthread_mutex_lock(&philo->rules->mutex[philo->id - 1]);
-	pthread_mutex_lock(&philo->rules->mutex[philo->id % philo->rules->num_philo]);
-	printf ("philo %d is born\n", philo->id);
-	pthread_mutex_unlock(&philo->rules->mutex[philo->id - 1]);
-	pthread_mutex_unlock(&philo->rules->mutex[philo->id % philo->rules->num_philo]);
+	while (1)
+	{
+		if (philo->id % 2 == 0)
+			office(philo);
+		pthread_mutex_lock(&philo->rules->mutex[philo->id - 1]);
+		pthread_mutex_lock(&philo->rules->mutex[philo->id % philo->rules->num_philo]);
+		philo_stats(philo, 1);
+		philo_stats(philo, 2);
+		usleep(philo->rules->eat);
+		pthread_mutex_unlock(&philo->rules->mutex[philo->id - 1]);
+		pthread_mutex_unlock(&philo->rules->mutex[philo->id % philo->rules->num_philo]);
+		bedroom(philo);
+	}
 	//pthread_mutex_destroy(&philo->rules->mutex);
 	return (0);
 }
@@ -68,19 +75,11 @@ int main(int ac, char **av)
 	else
 	{
 		num_philo = ft_atoi(av[1]);
-		while (i < num_philo)
-		{
-			printf ("%s\n", av[i + 1]);
-			i++;
-		}
 		philo = malloc(sizeof(t_philo) * num_philo);
-		//rules = malloc(sizeof(t_global));
 		i = 0;
 		while (i < num_philo)
 		{
 			philo[i].id = i + 1;
-			//philo[i].rules = rules;
-			// printf ("philo %d is born\n", philo[i].id);
 			philo[i].rules = doc_strange(ac, av, num_philo);
 			i++;
 		}

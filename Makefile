@@ -2,7 +2,7 @@ NAME = philo
 
 CC = gcc
 
-SRCS = philo.c tools.c
+SRCS = philo.c tools.c status.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:44:23 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/06 22:58:38 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/09 01:20:07 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <sys/time.h>
 
 typedef struct s_global
 {
@@ -37,5 +39,8 @@ typedef struct s_philo
 
 
 long long	ft_atoi(const char *str);
+void		philo_stats(t_philo *philo, int status);
+void		office(t_philo *philo);
+void		bedroom(t_philo *philo);
 
 # endif
