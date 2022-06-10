@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:44:58 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/09 01:20:42 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/10 01:10:41 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,15 @@ void	*philo_born(void *guests)
 	philo = (t_philo*)guests;
 	while (1)
 	{
-		if (philo->id % 2 == 0)
-			office(philo);
 		pthread_mutex_lock(&philo->rules->mutex[philo->id - 1]);
 		pthread_mutex_lock(&philo->rules->mutex[philo->id % philo->rules->num_philo]);
 		philo_stats(philo, 1);
 		philo_stats(philo, 2);
-		usleep(philo->rules->eat);
+		usleep(philo->rules->eat * 1000);
 		pthread_mutex_unlock(&philo->rules->mutex[philo->id - 1]);
 		pthread_mutex_unlock(&philo->rules->mutex[philo->id % philo->rules->num_philo]);
 		bedroom(philo);
+		office(philo);
 	}
 	//pthread_mutex_destroy(&philo->rules->mutex);
 	return (0);
@@ -41,6 +40,7 @@ void init_mutex(int num_philo, t_global *rules)
 
 	i = 0;
 	rules->mutex = malloc(sizeof(pthread_mutex_t) * num_philo);
+	pthread_mutex_init(&rules->print, NULL);
 	while (i < num_philo)
 	{
 		pthread_mutex_init(&rules->mutex[i], NULL);
@@ -86,6 +86,8 @@ int main(int ac, char **av)
 		i = 0;
 		while (i < num_philo)
 		{
+			if (philo[i].id % 2 == 0)
+				usleep (1000);
 			pthread_create(&philo[i].philo, NULL, &philo_born, &philo[i]);
 			i++;
 		}

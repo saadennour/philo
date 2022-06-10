@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:44:23 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/09 01:20:07 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/09 21:44:07 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 typedef struct s_global
 {
 	pthread_mutex_t *mutex;
+	pthread_mutex_t print;
 	int				die;
 	int 			eat;
 	int				sleep;
