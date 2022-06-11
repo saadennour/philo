@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:44:23 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/09 21:44:07 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/12 00:11:33 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,8 @@ long long	ft_atoi(const char *str);
 void		philo_stats(t_philo *philo, int status);
 void		office(t_philo *philo);
 void		bedroom(t_philo *philo);
+void		dinning(t_philo *philo);
+void		ft_putnbr(int nb);
+void		timer();
 
 # endif

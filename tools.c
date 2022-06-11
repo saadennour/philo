@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:56:35 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/05/30 16:56:50 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/10 22:55:59 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,3 +50,26 @@ long long	ft_atoi(const char *str)
 	}
 	return (result * negativity);
 }
+
+
+// void	ft_putnbr(int nb)
+// {
+// 	unsigned int a;
+
+// 	if (nb < 0)
+// 	{
+// 		write (1, "-", 1);
+// 		nb *= -1;
+// 	}
+// 	a = nb;
+// 	if (a > 9)
+// 	{
+// 		ft_putnbr(a / 10);
+// 		ft_putnbr(a % 10);
+// 	}
+// 	else
+// 	{
+// 		a -= '0';
+// 		write (1, &a, 1);
+// 	}
+// }

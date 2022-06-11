@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 21:43:23 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/10 01:09:34 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/12 00:22:37 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,7 @@ void	philo_stats(t_philo *philo, int status)
 {
 	pthread_mutex_lock(&philo->rules->print);
 	if (status == 1)
-	{
 		printf ("%d has taken a fork\n", philo->id);
-		printf ("%d has taken a fork\n", philo->id);
-	}
 	else if (status == 2)
 		printf ("%d is eating\n", philo->id);
 	else if (status == 3)
@@ -29,29 +26,6 @@ void	philo_stats(t_philo *philo, int status)
 	else if (status == 5)
 		printf ("%d died\n", philo->id);
 	pthread_mutex_unlock(&philo->rules->print);
-}
-
-void	office(t_philo *philo)
-{
-	struct timeval	initial;
-	struct timeval	final;
-	int				time;
-	
-	time = 0;
-	philo_stats(philo, 4);
-	gettimeofday(&initial, NULL);
-	while (time < (philo->rules->eat * 1000))
-	{
-		usleep(10000);
-		gettimeofday(&final, NULL);
-		time = final.tv_usec - initial.tv_usec;
-		if (time >= (philo->rules->die * 1000))
-		{
-			philo_stats(philo, 5);
-			exit (0);
-		}
-	}
-	return ;
 }
 
 void	bedroom(t_philo *philo)
@@ -65,9 +39,10 @@ void	bedroom(t_philo *philo)
 	gettimeofday(&initial, NULL);
 	while (time < (philo->rules->sleep * 1000))
 	{
-		usleep(10000);
+		//usleep(philo->rules->sleep * 1000);
 		gettimeofday(&final, NULL);
-		time = final.tv_usec - initial.tv_usec;
+		time = ((final.tv_sec - initial.tv_sec) * 1000000) + final.tv_usec - initial.tv_usec;
+		//printf ("%d\n", time);
 		if (time >= (philo->rules->die * 1000))
 		{
 			philo_stats(philo, 5);
@@ -75,4 +50,32 @@ void	bedroom(t_philo *philo)
 		}
 	}
 	return ;
+}
+
+void	dinning(t_philo *philo)
+{
+	struct timeval	initial;
+	struct timeval	final;
+	int				time;
+	
+	time = 0;
+	gettimeofday(&initial, NULL);
+	while (time < (philo->rules->eat * 1000))
+	{
+		gettimeofday(&final, NULL);
+		time = ((final.tv_sec - initial.tv_sec) * 1000000) + final.tv_usec - initial.tv_usec;
+	}
+	//usleep(philo->rules->eat * 1000);
+	return ;
+}
+
+void	timer()
+{
+	struct timeval	initial;
+	//struct timeval	final;
+	//int				time;
+
+	//time = 0;
+	gettimeofday(&initial, NULL);
+	printf ("%ld seconds and %d microsec\n", initial.tv_sec, initial.tv_usec);
 }
