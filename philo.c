@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:44:58 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/11 23:23:35 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/13 02:49:15 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@ void	*philo_born(void *guests)
 	philo = (t_philo*)guests;
 	while (1)
 	{
+		
 		pthread_mutex_lock(&philo->rules->mutex[philo->id - 1]);
 		philo_stats(philo, 1);
 		pthread_mutex_lock(&philo->rules->mutex[philo->id % philo->rules->num_philo]);
 		philo_stats(philo, 1);
 		philo_stats(philo, 2);
-		dinning(philo);
+		dining(philo);
 		pthread_mutex_unlock(&philo->rules->mutex[philo->id - 1]);
 		pthread_mutex_unlock(&philo->rules->mutex[philo->id % philo->rules->num_philo]);
 		bedroom(philo);
@@ -90,7 +91,7 @@ int main(int ac, char **av)
 				pthread_create(&philo[i].philo, NULL, &philo_born, &philo[i]);
 			i++;
 		}
-		usleep(20000);
+		usleep(200);
 		i = 0;
 		while (i < num_philo)
 		{

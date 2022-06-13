@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 21:43:23 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/12 00:22:37 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/13 02:48:49 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,8 @@ void	bedroom(t_philo *philo)
 	gettimeofday(&initial, NULL);
 	while (time < (philo->rules->sleep * 1000))
 	{
-		//usleep(philo->rules->sleep * 1000);
 		gettimeofday(&final, NULL);
 		time = ((final.tv_sec - initial.tv_sec) * 1000000) + final.tv_usec - initial.tv_usec;
-		//printf ("%d\n", time);
 		if (time >= (philo->rules->die * 1000))
 		{
 			philo_stats(philo, 5);
@@ -52,7 +50,7 @@ void	bedroom(t_philo *philo)
 	return ;
 }
 
-void	dinning(t_philo *philo)
+void	dining(t_philo *philo)
 {
 	struct timeval	initial;
 	struct timeval	final;
@@ -65,17 +63,41 @@ void	dinning(t_philo *philo)
 		gettimeofday(&final, NULL);
 		time = ((final.tv_sec - initial.tv_sec) * 1000000) + final.tv_usec - initial.tv_usec;
 	}
-	//usleep(philo->rules->eat * 1000);
+	philo->last_meal = ((final.tv_sec - initial.tv_sec) * 1000000) + final.tv_usec - initial.tv_usec;
+	philo->rules->meals -= 1;
 	return ;
 }
 
-void	timer()
-{
-	struct timeval	initial;
-	//struct timeval	final;
-	//int				time;
 
-	//time = 0;
-	gettimeofday(&initial, NULL);
-	printf ("%ld seconds and %d microsec\n", initial.tv_sec, initial.tv_usec);
+void	tombstone(t_philo *philo)
+{
+	int	i;
+	int	num_philo;
+	
+	num_philo = philo->rules->num_philo;
+	while (num_philo != 0)
+	{
+		i = 0;
+		while (i < philo->rules->num_philo)
+		{
+			if (philo[i].rules->meals == 0)
+				num_philo--;
+			i++;
+		}
+	}
+	exit (0);
+}
+
+void	hades(t_philo *philo)
+{
+	struct timeval	time;
+	int clock;
+
+	gettimeofday(&time, NULL);
+	clock = time.tv_sec - philo->last_meal;
+	if (clock >= philo->rules->die)
+	{
+		philo_stats(philo, 5);
+		exit (0);
+	}
 }
