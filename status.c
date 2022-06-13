@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 21:43:23 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/13 02:48:49 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/14 00:50:23 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,11 @@ void	dining(t_philo *philo)
 	{
 		gettimeofday(&final, NULL);
 		time = ((final.tv_sec - initial.tv_sec) * 1000000) + final.tv_usec - initial.tv_usec;
+		//printf ("%d\n", time);
 	}
 	philo->last_meal = ((final.tv_sec - initial.tv_sec) * 1000000) + final.tv_usec - initial.tv_usec;
-	philo->rules->meals -= 1;
+	philo->meals -= 1;
+	printf ("%d\n", philo->meals);
 	return ;
 }
 
@@ -72,32 +74,45 @@ void	dining(t_philo *philo)
 void	tombstone(t_philo *philo)
 {
 	int	i;
+	int	j;
 	int	num_philo;
 	
+	j = -1;
 	num_philo = philo->rules->num_philo;
 	while (num_philo != 0)
 	{
-		i = 0;
+		i = 0;	
 		while (i < philo->rules->num_philo)
 		{
-			if (philo[i].rules->meals == 0)
+			if (philo[i].meals == 0 && i > j)
+			{
+				j = i;
 				num_philo--;
+			}
 			i++;
 		}
 	}
+	//printf ("%d\n", num_philo);
 	exit (0);
 }
 
-void	hades(t_philo *philo)
-{
-	struct timeval	time;
-	int clock;
-
-	gettimeofday(&time, NULL);
-	clock = time.tv_sec - philo->last_meal;
-	if (clock >= philo->rules->die)
-	{
-		philo_stats(philo, 5);
-		exit (0);
-	}
-}
+// void	hades(t_philo **philo, int ac)
+// {
+// 	// struct timeval	time;
+// 	// int clock;
+// 	int	i;
+	
+// 	i = 0;
+// 	// gettimeofday(&time, NULL);
+// 	// clock = time.tv_sec - philo->last_meal;
+// 	// if (clock >= philo->rules->die)
+// 	// {
+// 	// 	philo_stats(philo, 5);
+// 	// 	exit (0);
+// 	// }
+// 	while (i < philo->rules->num_philo)
+// 	{
+// 		if (ac == 6)
+// 			tombstone(philo[i]);
+// 	} 
+// }

@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:44:58 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/13 02:49:15 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/14 00:23:04 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	*philo_born(void *guests)
 	philo = (t_philo*)guests;
 	while (1)
 	{
-		
 		pthread_mutex_lock(&philo->rules->mutex[philo->id - 1]);
 		philo_stats(philo, 1);
 		pthread_mutex_lock(&philo->rules->mutex[philo->id % philo->rules->num_philo]);
@@ -50,14 +49,12 @@ void init_mutex(int num_philo, t_global *rules)
 	}
 }
 
-t_global *doc_strange(int ac, char **av, t_global *rules)
+t_global *doc_strange(char **av, t_global *rules)
 {
 	rules->num_philo = ft_atoi(av[1]);	
 	rules->die = ft_atoi(av[2]);
 	rules->eat = ft_atoi(av[3]);
 	rules->sleep = ft_atoi(av[4]);
-	if (ac == 6)
-		rules->meals = ft_atoi(av[5]);
 	return (rules);
 }
 
@@ -81,7 +78,9 @@ int main(int ac, char **av)
 		while (i < num_philo)
 		{
 			philo[i].id = i + 1;
-			philo[i].rules = doc_strange(ac, av, rules);
+			philo[i].rules = doc_strange(av, rules);
+			if (ac == 6)
+				philo[i].meals = ft_atoi(av[5]);
 			i++;
 		}
 		i = 0;
@@ -99,12 +98,18 @@ int main(int ac, char **av)
 				pthread_create(&philo[i].philo, NULL, &philo_born, &philo[i]);
 			i++;
 		}
-		i = 0;
-		while (i < num_philo)
+		//i = 0;
+		//printf ("%d\n", philo[i].rules->meals);
+		while (1)
 		{
-			pthread_join(philo[i].philo, NULL);
-			i++;
+			tombstone(philo);
 		}
+		//i = 0;
+		// while (i < num_philo)
+		// {
+		// 	pthread_join(philo[i].philo, NULL);
+		// 	i++;
+		// }	
 	}
 	//free(philo);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:44:23 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/12 22:21:47 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/14 00:03:11 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ typedef struct s_global
 	int				die;
 	int 			eat;
 	int				sleep;
-	int				meals;
 	int				num_philo;
 } t_global ;
 
@@ -33,6 +32,7 @@ typedef struct s_philo
 {
 	int 		id;
 	int 		last_meal;
+	int			meals;
 	pthread_t 	philo;
 	t_global	*rules;
 } t_philo ;
@@ -45,5 +45,7 @@ void		office(t_philo *philo);
 void		bedroom(t_philo *philo);
 void		dining(t_philo *philo);
 void		ft_putnbr(int nb);
+void		tombstone(t_philo *philo);
+void		hades(t_philo *philo, int ac);
 
 # endif

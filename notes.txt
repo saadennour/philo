@@ -22,63 +22,11 @@ alloc for mutexes
 initialise them
 
 
-Erica young
-Mohammed amine elhani
-meeting
-
-Dear M.Young,
-
-i just want to inform you that i cannot be present for the next week's meeting .
-
-The reason behind my absence, is that im gonna need to be at my sister's wedding the same day of the meeting.
-
-For this cause, i want to apologize for my absence, and i want to tell you that my assistant M.EL karmi will be my substitute.
-
-Thank you for your understanding,
-
-Sincerely,
-
-regional sales manager
-M.elhani
-
-
-
-
-
-
-
-
-Mohammed amine elhani
-M.elfadili
-08/06/2022
-Presentation about the commpany
-
-Dear M.elfadili,
-
-I want to thank you for giving me the responsability of presenting the company to the visitors next week.
-
-For this event, im going to give a brief idea about the company's business, our procedures of work, and our ways to reduce the effect 
-on eco system.
-
-After the presentation which i think the hall conference will be a good place for,i suggest to take a tour with the visitors 
-in our factory to explain things more. 
-
-Your Sincerely,
-
-
-
-Dear M.benfriman
-
-    i want to tell you that giving a short presentation about the new customer survey will be good idea.
-
-    i want to inform you that im going to present the questions in the survey and explain the main reason behind each one, and also the effect
-    of this survey on our business.
-
-    i suggest to make the next friday the date for this event. 
-
-    Sincerely,
-    M.elhani
-
+philo->time = gettimeofday
+while (1)
+philo->time <= time + die;
+stats;
+exit;
 
 
 
