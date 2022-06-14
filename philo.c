@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:44:58 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/14 00:23:04 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/15 00:34:49 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int main(int ac, char **av)
 {
 	t_philo		*philo;
 	t_global	*rules;
+	struct timeval time;
 	int 		num_philo;
 	int			i;
 
@@ -79,6 +80,7 @@ int main(int ac, char **av)
 		{
 			philo[i].id = i + 1;
 			philo[i].rules = doc_strange(av, rules);
+			philo[i].meals = 0;
 			if (ac == 6)
 				philo[i].meals = ft_atoi(av[5]);
 			i++;
@@ -87,7 +89,11 @@ int main(int ac, char **av)
 		while (i < num_philo)
 		{
 			if (philo[i].id % 2 == 1)
+			{
+				gettimeofday(&time, NULL);
+				philo[i].last_meal = (time.tv_sec * 1000000) + time.tv_usec;
 				pthread_create(&philo[i].philo, NULL, &philo_born, &philo[i]);
+			}
 			i++;
 		}
 		usleep(200);
@@ -95,14 +101,18 @@ int main(int ac, char **av)
 		while (i < num_philo)
 		{
 			if (philo[i].id % 2 == 0)
+			{
+				gettimeofday(&time, NULL);
+				philo[i].last_meal = (time.tv_sec * 1000000) + time.tv_usec;
 				pthread_create(&philo[i].philo, NULL, &philo_born, &philo[i]);
+			}
 			i++;
 		}
-		//i = 0;
-		//printf ("%d\n", philo[i].rules->meals);
 		while (1)
 		{
-			tombstone(philo);
+			if (ac == 6)
+				tombstone(philo);
+			hades(philo);
 		}
 		//i = 0;
 		// while (i < num_philo)
