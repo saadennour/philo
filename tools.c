@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:56:35 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/10 22:55:59 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/17 00:44:34 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,25 +51,20 @@ long long	ft_atoi(const char *str)
 	return (result * negativity);
 }
 
+int	big_ben(struct timeval initial, struct timeval final)
+{
+	int	clock;
 
-// void	ft_putnbr(int nb)
-// {
-// 	unsigned int a;
+	clock = ((final.tv_sec - initial.tv_sec) * 1000000)
+		+ (final.tv_usec - initial.tv_usec);
+	return (clock);
+}
 
-// 	if (nb < 0)
-// 	{
-// 		write (1, "-", 1);
-// 		nb *= -1;
-// 	}
-// 	a = nb;
-// 	if (a > 9)
-// 	{
-// 		ft_putnbr(a / 10);
-// 		ft_putnbr(a % 10);
-// 	}
-// 	else
-// 	{
-// 		a -= '0';
-// 		write (1, &a, 1);
-// 	}
-// }
+int	sec_to(struct timeval initial, struct timeval final)
+{
+	int	clock;
+
+	clock = ((final.tv_sec * 1000) - (initial.tv_sec * 1000))
+		+ ((final.tv_usec / 1000) - (initial.tv_usec / 1000));
+	return (clock);
+}
