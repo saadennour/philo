@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 23:46:04 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/17 01:05:54 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/18 02:12:28 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	private_info(t_philo *philo, int ac, char **av, t_global *rules)
 {
 	int	i;
-	int num_philo;
-	
+	int	num_philo;
+
 	i = 0;
 	num_philo = ft_atoi(av[1]);
 	while (i < num_philo)
@@ -28,13 +28,12 @@ void	private_info(t_philo *philo, int ac, char **av, t_global *rules)
 			philo[i].meals = ft_atoi(av[5]);
 		i++;
 	}
+	create_philo(philo, num_philo);
 }
 
 static void	part_two(t_philo *philo, int num_philo)
 {
-	int				i;
-	//struct timeval	time;
-	
+	int	i;	
 
 	i = -1;
 	while (++i < num_philo)
@@ -49,9 +48,8 @@ static void	part_two(t_philo *philo, int num_philo)
 
 void	create_philo(t_philo *philo, int num_philo)
 {
-	int				i;
-	//struct timeval	time;
-	static int		j;
+	int			i;
+	static int	j;
 
 	i = -1;
 	while (++i < num_philo)
@@ -69,5 +67,4 @@ void	create_philo(t_philo *philo, int num_philo)
 	}
 	usleep(200);
 	part_two(philo, num_philo);
-	
 }

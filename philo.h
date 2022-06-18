@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:44:23 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/17 01:02:10 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/18 00:11:08 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ int			big_ben(struct timeval initial, struct timeval final);
 int			sec_to(struct timeval initial, struct timeval final);
 void		private_info(t_philo *philo, int ac, char **av, t_global *rules);
 void		create_philo(t_philo *philo, int num_philo);
+void		ft_usleep(long start);
 
 #endif

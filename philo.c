@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:44:58 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/17 00:40:48 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/18 02:26:39 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,14 @@ int	main(int ac, char **av)
 		rules = malloc(sizeof(t_global));
 		init_mutex(num_philo, rules);
 		private_info(philo, ac, av, rules);
-		create_philo(philo, num_philo);
 		while (1)
 		{
-			if (ac == 6)
-			{
-				if (tombstone(philo) == 1)
-					return (2);
-			}
 			if (hades(philo) == 1)
-				return (1);
+			{
+				free (philo);
+				free (rules);
+				return (2);
+			}
 		}
 	}
 	return (0);

@@ -6,7 +6,7 @@ SRCS = philo.c tools.c status.c threads.c
 
 OBJS = $(SRCS:.c=.o)
 
-FLAGS = -Wall -Werror -Wextra -pthread 
+FLAGS = -Wall -Werror -Wextra 
 
 all: $(NAME)
 
