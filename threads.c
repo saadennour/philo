@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 23:46:04 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/18 02:12:28 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/19 02:30:53 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,20 @@ void	create_philo(t_philo *philo, int num_philo)
 	}
 	usleep(200);
 	part_two(philo, num_philo);
+}
+
+int	kerberos(t_philo *philo, int i)
+{
+	struct timeval	final;
+	int				clock;
+
+	clock = 0;
+	gettimeofday(&final, NULL);
+	clock = sec_to(philo[i].last_meal, final);
+	if (clock >= philo[i].rules->die)
+	{
+		philo_stats(philo, 5);
+		return (1);
+	}
+	return (0);
 }

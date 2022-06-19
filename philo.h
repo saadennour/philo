@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:44:23 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/18 00:11:08 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/19 23:39:53 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_philo
 	t_global			*rules;
 }	t_philo;
 
+int			check(char **av);
 void		*philo_born(void *guests);
 long long	ft_atoi(const char *str);
 void		philo_stats(t_philo *philo, int status);
@@ -45,13 +46,15 @@ void		office(t_philo *philo);
 void		bedroom(t_philo *philo);
 void		dining(t_philo *philo);
 void		ft_putnbr(int nb);
-int			tombstone(t_philo *philo);
-int			hades(t_philo *philo);
+int			ft_isdigit(int c);
+void		tombstone(t_philo *philo, int *num_philo);
+int			hades(t_philo *philo, int ac, int num_philo);
 t_global	*doc_strange(char **av, t_global *rules);
 int			big_ben(struct timeval initial, struct timeval final);
 int			sec_to(struct timeval initial, struct timeval final);
 void		private_info(t_philo *philo, int ac, char **av, t_global *rules);
 void		create_philo(t_philo *philo, int num_philo);
 void		ft_usleep(long start);
+int			kerberos(t_philo *philo, int i);
 
 #endif

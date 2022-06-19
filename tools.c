@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:56:35 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/17 23:45:23 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/19 00:11:17 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_usleep(long start)
 	usleep(start * 0.9);
 	while (t * 1000 < start)
 	{
-		usleep(100);
+		usleep(300);
 		gettimeofday(&time1, NULL);
 		t = sec_to(time, time1);
 	}

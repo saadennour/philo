@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 21:43:23 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/18 02:25:18 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/19 03:02:37 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,22 @@
 void	philo_stats(t_philo *philo, int status)
 {
 	struct timeval	final;
-	int				time;
+	long int		time;
 
 	pthread_mutex_lock(&philo->rules->print);
 	gettimeofday(&final, NULL);
 	time = sec_to(philo->rules->time, final);
 	if (status == 1)
-		printf ("%d: %d has taken a fork\n", time, philo->id);
+		printf ("%ld: %d has taken a fork\n", time, philo->id);
 	else if (status == 2)
-		printf ("%d: %d is eating\n", time, philo->id);
+		printf ("%ld: %d is eating\n", time, philo->id);
 	else if (status == 3)
-		printf ("%d: %d is sleeping\n", time, philo->id);
+		printf ("%ld: %d is sleeping\n", time, philo->id);
 	else if (status == 4)
-		printf ("%d: %d is thinking\n", time, philo->id);
+		printf ("%ld: %d is thinking\n", time, philo->id);
 	else if (status == 5)
 	{
-		printf ("%d: %d died\n", time, philo->id);
+		printf ("%ld: %d died\n", time, philo->id);
 		return ;
 	}
 	pthread_mutex_unlock(&philo->rules->print);
@@ -50,48 +50,41 @@ void	dining(t_philo *philo)
 	philo->meals -= 1;
 }
 
-int	tombstone(t_philo *philo)
+void	tombstone(t_philo *philo, int *num_philo)
 {
-	int	i;
-	int	j;
-	int	num_philo;
+	int			i;
+	static int	j;
 
-	j = 0;
-	num_philo = philo->rules->num_philo;
-	while (num_philo != 0)
+	i = j;
+	if (philo[i].meals <= 0)
 	{
-		i = j;
-		if (philo[i].meals == 0)
-		{
-			num_philo--;
-			j = i + 1;
-		}
-		i++;
+		(*num_philo)--;
+		j = i + 1;
 	}
-	return (1);
 }
 
-int	hades(t_philo *philo)
+int	hades(t_philo *philo, int ac, int num_philo)
 {
-	struct timeval	final;
-	long int		clock;
-	int				i;
+	int	i;
 
-	i = 0;
-	clock = 0;
 	while (1)
 	{
-		i = 0;
-		while (i < philo->rules->num_philo)
+		i = -1;
+		while (++i < philo->rules->num_philo)
 		{
-			gettimeofday(&final, NULL);
-			clock = sec_to(philo[i].last_meal, final);
-			if (clock >= philo[i].rules->die)
-			{
-				philo_stats(philo, 5);
+			if (kerberos(philo, i) == 1)
 				return (1);
+			if (ac == 6)
+			{
+				tombstone(philo, &num_philo);
+				{
+					if (num_philo == 0)
+					{
+						pthread_mutex_lock(&philo->rules->print);
+						return (1);
+					}
+				}
 			}
-			i++;
 		}
 	}
 }

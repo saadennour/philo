@@ -2,11 +2,11 @@ NAME = philo
 
 CC = gcc
 
-SRCS = philo.c tools.c status.c threads.c
+SRCS = philo.c tools.c status.c threads.c errors.c
 
 OBJS = $(SRCS:.c=.o)
 
-FLAGS = -Wall -Werror -Wextra 
+FLAGS = -Wall -Werror -Wextra -pthread
 
 all: $(NAME)
 

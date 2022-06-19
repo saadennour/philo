@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:44:58 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/18 02:26:39 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/19 23:34:02 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ int	main(int ac, char **av)
 		printf ("Error\n");
 	else
 	{
+		if (check(av) == 0)
+		{
+			printf ("Error\n");
+			return (0);
+		}
 		num_philo = ft_atoi(av[1]);
 		philo = malloc(sizeof(t_philo) * num_philo);
 		rules = malloc(sizeof(t_global));
@@ -74,12 +79,8 @@ int	main(int ac, char **av)
 		private_info(philo, ac, av, rules);
 		while (1)
 		{
-			if (hades(philo) == 1)
-			{
-				free (philo);
-				free (rules);
-				return (2);
-			}
+			if (hades(philo, ac, num_philo) == 1)
+				return (1);
 		}
 	}
 	return (0);
