@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:44:58 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/19 23:34:02 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/22 01:34:54 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	init_mutex(int num_philo, t_global *rules)
 	i = 0;
 	rules->mutex = malloc(sizeof(pthread_mutex_t) * num_philo);
 	pthread_mutex_init(&rules->print, NULL);
+	pthread_mutex_init(&rules->lunch, NULL);
 	while (i < num_philo)
 	{
 		pthread_mutex_init(&rules->mutex[i], NULL);
@@ -59,15 +60,15 @@ t_global	*doc_strange(char **av, t_global *rules)
 
 int	main(int ac, char **av)
 {
-	t_philo			*philo;
-	t_global		*rules;
-	int				num_philo;
+	t_philo		*philo;
+	t_global	*rules;
+	int			num_philo;
 
 	if (ac < 5 || ac > 6)
 		printf ("Error\n");
 	else
 	{
-		if (check(av) == 0)
+		if (check(ac, av) == 0)
 		{
 			printf ("Error\n");
 			return (0);

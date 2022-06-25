@@ -6,13 +6,13 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 23:30:10 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/19 23:40:02 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/22 01:35:46 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check(char **av)
+int	check(int ac, char **av)
 {
 	int	i;
 	int	j;
@@ -33,5 +33,7 @@ int	check(char **av)
 		}
 		i++;
 	}
+	if (ac == 6 && ft_atoi(av[5]) == 0)
+		return (0);
 	return (1);
 }

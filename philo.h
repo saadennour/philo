@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:44:23 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/19 23:39:53 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/22 01:34:49 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_global
 {
 	pthread_mutex_t	*mutex;
 	pthread_mutex_t	print;
+	pthread_mutex_t	lunch;
 	struct timeval	time;
 	int				die;
 	int				eat;
@@ -38,7 +39,7 @@ typedef struct s_philo
 	t_global			*rules;
 }	t_philo;
 
-int			check(char **av);
+int			check(int ac, char **av);
 void		*philo_born(void *guests);
 long long	ft_atoi(const char *str);
 void		philo_stats(t_philo *philo, int status);

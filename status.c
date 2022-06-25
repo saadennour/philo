@@ -6,7 +6,7 @@
 /*   By: sfarhan <sfarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 21:43:23 by sfarhan           #+#    #+#             */
-/*   Updated: 2022/06/19 03:02:37 by sfarhan          ###   ########.fr       */
+/*   Updated: 2022/06/21 01:59:26 by sfarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ void	dining(t_philo *philo)
 	gettimeofday(&philo->last_meal, NULL);
 	philo_stats(philo, 2);
 	ft_usleep (philo->rules->eat * 1000);
+	pthread_mutex_lock(&philo->rules->lunch);
 	philo->meals -= 1;
+	pthread_mutex_unlock(&philo->rules->lunch);
 }
 
 void	tombstone(t_philo *philo, int *num_philo)
@@ -56,11 +58,13 @@ void	tombstone(t_philo *philo, int *num_philo)
 	static int	j;
 
 	i = j;
+	pthread_mutex_lock(&philo->rules->lunch);
 	if (philo[i].meals <= 0)
 	{
 		(*num_philo)--;
 		j = i + 1;
 	}
+	pthread_mutex_unlock(&philo->rules->lunch);
 }
 
 int	hades(t_philo *philo, int ac, int num_philo)
